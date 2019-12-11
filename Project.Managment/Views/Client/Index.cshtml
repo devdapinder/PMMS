@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+    <div class="row">
+        <div class="span12">
+            <h3>Carichi magazzino Derrate</h3>
+        </div>
+        <div class="col-sm-12">
+            <div class="widget ">
+                <div class="widget-header">
+                </div>
+                <!-- /widget-header -->
+                <div class="widget-content">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#carichi" role="tab" aria-controls="home" aria-selected="true">Carichi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#scarichi" role="tab" aria-controls="profile" aria-selected="false">Scarichi</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="carichi" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="col-sm-12 margin-top-bottom">
+                                <a href="javascript:void(0);" type="button" class="btn btn-primary">NUOVO CARICO MAGGAZZINO</a>
+                                <a class="btn btn-success pull-right" href="javascript:void(0);" data-column="1" onclick="tableToExcel('project', 'Pmms')"><i class="fa fa-home"></i>ESPORTA EXCEL</a>
+                            </div>
+                            <div class="col-sm-12 margin-top-bottom">
+                                <div class="form-group">
+                                    <select class="form-control" id="lt-filter-box">
+                                        <option>Filtri di ricerca</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 margin-top-bottom">
+                                <table id="project" class="table table-striped table-bordered" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Company</th>
+                                            <th>Type </th>
+                                            <th>Address</th>
+                                            <th>City</th>
+                                            <th>Nation</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Pec</th>
+                                            <th>Vat</th>
+                                            <th>Note</th>                                           
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>Type A</td>
+                                            <td>Address A</td>
+                                            <td>City A</td>
+                                            <td>Nation A</td>
+                                            <td>1234567890</td>
+                                            <td>Test@gmail.com</td>
+                                            <td>PEC A</td>
+                                            <td>VAT A</td>
+                                            <td>Note A</td>
+                                            <td><a href="javascript:void(0);" class="btn btn-primary">DETTAGLIO</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>Type B</td>
+                                            <td>Address B</td>
+                                            <td>City B</td>
+                                            <td>Nation B</td>
+                                            <td>1234567890</td>
+                                            <td>TestB@gmail.com</td>
+                                            <td>PEC B</td>
+                                            <td>VAT B</td>
+                                            <td>Note B</td>
+                                            <td><a href="javascript:void(0);" class="btn btn-primary">DETTAGLIO</a></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>Type C</td>
+                                            <td>Address C</td>
+                                            <td>City C</td>
+                                            <td>Nation C</td>
+                                            <td>1234567890</td>
+                                            <td>TestC@gmail.com</td>
+                                            <td>PEC C</td>
+                                            <td>VAT C</td>
+                                            <td>Note C</td>
+                                            <td><a href="javascript:void(0);" class="btn btn-primary">DETTAGLIO</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tiger Nixon</td>
+                                            <td>Type D</td>
+                                            <td>Address D</td>
+                                            <td>City D</td>
+                                            <td>Nation D</td>
+                                            <td>1234567890</td>
+                                            <td>TestD@gmail.com</td>
+                                            <td>PEC D</td>
+                                            <td>VAT D</td>
+                                            <td>Note D</td>
+                                            <td><a href="javascript:void(0);" class="btn btn-primary">DETTAGLIO</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="scarichi" role="tabpanel" aria-labelledby="profile-tab"></div>
+                    </div>
+                    <!-- /widget-content -->
+                </div> <!-- /widget -->
+            </div> <!-- /col-sm-12 -->
+        </div>
+    </div>
+
