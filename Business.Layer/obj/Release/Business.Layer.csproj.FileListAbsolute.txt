@@ -1,0 +1,9 @@
+F:\It\POC.PM\Business.Layer\bin\Release\Business.Layer.dll
+F:\It\POC.PM\Business.Layer\bin\Release\Business.Layer.pdb
+F:\It\POC.PM\Business.Layer\bin\Release\DataAccess.dll
+F:\It\POC.PM\Business.Layer\bin\Release\DataAccess.pdb
+F:\It\POC.PM\Business.Layer\obj\Release\Business.Layer.csprojAssemblyReference.cache
+F:\It\POC.PM\Business.Layer\obj\Release\Business.Layer.csproj.CoreCompileInputs.cache
+F:\It\POC.PM\Business.Layer\obj\Release\Business.Layer.csproj.CopyComplete
+F:\It\POC.PM\Business.Layer\obj\Release\Business.Layer.dll
+F:\It\POC.PM\Business.Layer\obj\Release\Business.Layer.pdb
