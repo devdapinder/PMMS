@@ -20,8 +20,8 @@ $(document).ready(function () {
     //    }
     //);
     $('#project').DataTable();
-
-
+    BindHumanResource();
+    BindBusinessTrip();
     //$('#project').DataTable({
     //    language: {
     //        processing: "Traitement en cours...",
@@ -48,6 +48,210 @@ $(document).ready(function () {
     //});
 });
 
+///Bind HumanResource
+function BindHumanResource() {
+    $('#humanResource').DataTable({
+        //"order": [[5, "desc"]],
+        //"columnDefs": [{ "targets": 5, "type": "date-eu" }],
+        "footerCallback": function (row, data, start, end, display) {
+
+            var api = this.api(), data;
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+
+            OfferDays = api
+                .column(2)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            // Update footer
+            $(api.column(2).footer()).html(
+                OfferDays
+            );
+
+            // Avarage need to calculate
+            OfferAmountperday = api
+                .column(3)
+                .data()
+                .reduce(function (a, b) {
+
+                    return intVal(a) + intVal(b);
+
+                }, 0);
+
+            $(api.column(3).footer()).html(
+                GetAvarage(OfferAmountperday, 'humanResource')
+            );
+
+            // total Trip Cost
+            TotalOfferamount = api
+                .column(4)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(4).footer()).html(
+                TotalOfferamount
+            );
+
+            // total Trip Cost
+            RealEstimatedDays = api
+                .column(5)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(5).footer()).html(
+                RealEstimatedDays
+            );
+
+
+            // Cost Per Day
+            CostPerDay = api
+                .column(6)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(6).footer()).html(
+                GetAvarage(CostPerDay, 'humanResource')
+            );
+            // Cost Per Day
+            TotalEstimatedAmount = api
+                .column(7)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(7).footer()).html(
+                TotalEstimatedAmount
+            );
+
+            TotalOfferamount = api
+                .column(8)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(8).footer()).html(
+                TotalOfferamount
+            );
+
+
+            TotalEstimatedAmount = api
+                .column(9)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(9).footer()).html(
+                TotalEstimatedAmount
+            );
+            Difference = api
+                .column(10)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(10).footer()).html(
+                Difference
+            );
+
+        }
+    });
+}
+///Bind BusinessTrip
+function BindBusinessTrip() {
+    $('#dtBusinessTrip').DataTable({
+        //"order": [[5, "desc"]],
+        //"columnDefs": [{ "targets": 5, "type": "date-eu" }],
+        "footerCallback": function (row, data, start, end, display) {
+            var api = this.api(), data;
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+
+            totalTripDays = api
+                .column(4)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            // Update footer
+            $(api.column(4).footer()).html(
+                totalTripDays
+            );
+            // total Days Refunded
+            totalDaysRefunded = api
+                .column(5)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(5).footer()).html(
+                totalDaysRefunded
+            );
+
+            // total Trip Cost
+            totalTripCost = api
+                .column(6)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(6).footer()).html(
+                totalTripCost
+            );
+
+            // total Trip Cost
+            Dailyfood = api
+                .column(7)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(7).footer()).html(
+                totalTripCost
+            );
+
+
+            // total amount
+            TotalAmount = api
+                .column(8)
+                .data()
+                .reduce(function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+
+            $(api.column(8).footer()).html(
+                TotalAmount
+            );
+        }
+    });
+}
+
 var tableToExcel = (function () {
     var uri = 'data:application/vnd.ms-excel;base64,'
         , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
@@ -59,3 +263,33 @@ var tableToExcel = (function () {
         window.location.href = uri + base64(format(template, ctx))
     }
 })();
+
+
+///Get Query string variables
+function getUrlVars() {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for (var i = 0; i < hashes.length; i++) {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+///Get Plane string
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function GetAvarage(total = 0, id) {   
+    var count = $('#' + id).find('tbody').children().length;//$('#' + id="  tbody  tr").length;//$('#' + id).data().count();
+    var average = 0;
+    average = total / count;
+    return average;
+}
