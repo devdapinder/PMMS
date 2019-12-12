@@ -1,6 +1,8 @@
 ﻿//ON READY INIT REQUIRED FUNTIONS OR ANY....
-
+///******************************COMMON FUNCTIONS***************************//
 $(document).ready(function () {
+
+    ///IF WE NEED TO ADD DATATABLE EXCEL ... DOWNLOAD FUNCTIONALITY
     //$('#project').DataTable(
     //    {
     //        dom: 'Bfrtip',
@@ -46,6 +48,21 @@ $(document).ready(function () {
     //        }
     //    }
     //});
+    var $window = $(window);
+    var $pane = $('#pane1');
+    function checkWidth() {
+        var windowsize = $window.width();
+        if (windowsize > 440) {
+            $('.addResponsiveTable').addClass('table-responsive');
+        }
+        else {
+            $('.addResponsiveTable').removeClass('table-responsive');
+        }
+    }
+    // Execute on load
+    checkWidth();
+    // Bind event listener
+    $(window).resize(checkWidth);
 });
 
 ///Bind HumanResource
@@ -251,7 +268,7 @@ function BindBusinessTrip() {
         }
     });
 }
-
+////Table to excel class
 var tableToExcel = (function () {
     var uri = 'data:application/vnd.ms-excel;base64,'
         , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
@@ -263,8 +280,6 @@ var tableToExcel = (function () {
         window.location.href = uri + base64(format(template, ctx))
     }
 })();
-
-
 ///Get Query string variables
 function getUrlVars() {
     var vars = [], hash;
@@ -286,10 +301,82 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-
-function GetAvarage(total = 0, id) {   
-    var count = $('#' + id).find('tbody').children().length;//$('#' + id="  tbody  tr").length;//$('#' + id).data().count();
+///GET AVARAGE
+function GetAvarage(total = 0, id) {
+    var count = $('#' + id).find('tbody').children().length;
     var average = 0;
     average = total / count;
     return average;
 }
+
+///******************************COMMON FUNCTIONS END***************************//
+
+
+
+///******************************PROJECT SCREEN REQUIRED FUNCTIONS***************************//
+///DUE TO WE ARE USING ONE MODAL POPUP FOR ADD EDIT
+function ProjectAddEditShowHide(isedit = true) {
+    if (isedit) {
+        $('#prjAdd').hide();
+        $('#prjUpdate').show();
+    }
+    else {
+        $('#prjUpdate').hide();
+        $('#prjAdd').show();
+    }
+}
+///ON ADD CASE OPEN PROJECT MODAL
+function OpenAddProjectModal() {
+    ProjectAddEditShowHide(false);
+    $('#addProject').modal('show');
+}
+
+///REQUIRED MUST 
+var selecedRowThis = null;
+///CRUD PROJECT ADD EDIT OPERATION
+function OnProjectEditBindElements(event, id) {
+    ProjectAddEditShowHide();   
+    $('#project tr').removeClass("selected");
+    $(event).closest("tr").addClass('selected');
+    selecedRowThis = event;
+    $('#txtData').val($(event).closest("tr").find('td').eq(0).text());
+    $('#txtFornotore').val($(event).closest("tr").find('td').eq(1).text());
+    $('#txtLotto').val($(event).closest("tr").find('td').eq(2).text());
+    $('#txtCodiceboliaaccompagnamento').val($(event).closest("tr").find('td').eq(3).text());
+    $('#txtOperatore').val($(event).closest("tr").find('td').eq(4).text());
+    $('#txtNarticolicaricati').val($(event).closest("tr").find('td').eq(5).text());
+    $('#txtTotaleimponibile').val($(event).closest("tr").find('td').eq(6).text());
+    $('#txtTotaleiva').val($(event).closest("tr").find('td').eq(7).text());
+    $('#addProject').modal('show');
+}
+///BIND ROW WITH DUMMY DATA
+function DrawProjectRow() {
+    $('#project').DataTable().row.add([
+        $('#txtData').val(),
+        $('#txtFornotore').val(),
+        $('#txtLotto').val(),
+        $('#txtCodiceboliaaccompagnamento').val(),
+        $('#txtOperatore').val(),
+        $('#txtNarticolicaricati').val(),
+        $('#txtTotaleimponibile').val(),
+        $('#txtTotaleiva').val(),
+        '<a href="Dashboard/DetailResources?Project=' + $('#txtData').val() + '&amp;Projecttitle=' + $('#txtFornotore').val() + '&amp;Customer=' + $('#txtLotto').val() + '&amp;Projectmanager=' + $('#txtOperatore').val() + '&amp;Projectcode=' + $('#txtNarticolicaricati').val() + '" class="btn btn-primary btn-sm">DETTAGLIO</a><a href="javascript:void(0);" class="btn btn-success btn-sm" onclick="OnProjectEditBindElements(this,1);">Edit</a>',
+    ]).draw();
+}
+
+///ON PROJECT ADD BUTTON CLICK
+function OnProjectAdd() {
+    $('#project tr').removeClass("selected");
+    DrawProjectRow();  
+    $('#addProject').modal('hide');
+    ProjectAddEditShowHide(false);
+}
+//ON UPDATE SAVE
+function OnProjectUpdateSave() {   
+    $('#project').DataTable().row('.selected').remove().draw(false);
+    DrawProjectRow();
+    $('#addProject').modal('hide');
+    selecedRowThis = null;
+    ProjectAddEditShowHide(false);  
+}
+///******************************PROJECT SCREEN REQUIRED FUNCTIONS END***************************//
