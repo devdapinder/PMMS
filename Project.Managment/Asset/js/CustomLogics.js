@@ -65,6 +65,7 @@ $(document).ready(function () {
     $(window).resize(checkWidth);
 });
 
+$('.basicAutoSelect').autoComplete();
 ///Bind HumanResource
 function BindHumanResource() {
     $('#humanResource').DataTable({
@@ -315,6 +316,19 @@ function GetAvarage(total = 0, id) {
 
 ///******************************PROJECT SCREEN REQUIRED FUNCTIONS***************************//
 ///DUE TO WE ARE USING ONE MODAL POPUP FOR ADD EDIT
+
+///
+function clearProject() {
+    $('#txtData').val('');
+    $('#txtFornotore').val('');
+    $('#txtLotto').val('');
+    $('#txtCodiceboliaaccompagnamento').val('');
+    $('#txtOperatore').val('');
+    $('#txtNarticolicaricati').val('');
+    $('#txtTotaleimponibile').val('');
+    $('#txtTotaleiva').val('');
+}
+
 function ProjectAddEditShowHide(isedit = true) {
     if (isedit) {
         $('#prjAdd').hide();
@@ -328,6 +342,7 @@ function ProjectAddEditShowHide(isedit = true) {
 ///ON ADD CASE OPEN PROJECT MODAL
 function OpenAddProjectModal() {
     ProjectAddEditShowHide(false);
+    clearProject();
     $('#addProject').modal('show');
 }
 
@@ -335,7 +350,7 @@ function OpenAddProjectModal() {
 var selecedRowThis = null;
 ///CRUD PROJECT ADD EDIT OPERATION
 function OnProjectEditBindElements(event, id) {
-    ProjectAddEditShowHide();   
+    ProjectAddEditShowHide();
     $('#project tr').removeClass("selected");
     $(event).closest("tr").addClass('selected');
     selecedRowThis = event;
@@ -367,16 +382,106 @@ function DrawProjectRow() {
 ///ON PROJECT ADD BUTTON CLICK
 function OnProjectAdd() {
     $('#project tr').removeClass("selected");
-    DrawProjectRow();  
+    DrawProjectRow();
     $('#addProject').modal('hide');
     ProjectAddEditShowHide(false);
 }
 //ON UPDATE SAVE
-function OnProjectUpdateSave() {   
+function OnProjectUpdateSave() {
     $('#project').DataTable().row('.selected').remove().draw(false);
     DrawProjectRow();
     $('#addProject').modal('hide');
     selecedRowThis = null;
-    ProjectAddEditShowHide(false);  
+    ProjectAddEditShowHide(false);
+}
+///******************************PROJECT SCREEN REQUIRED FUNCTIONS END***************************//
+
+
+///******************************DETAIL SCREEN HUMNAN RESOURCE REQUIRED FUNCTIONS***************************//
+///DUE TO WE ARE USING ONE MODAL POPUP FOR ADD EDIT
+function clearHumanResource() {
+    $('#drpName').val('');
+    $('#txtOfferDays').val('');
+    $('#txtOfferAmountperday').val('');
+    $('#txtRealEstimatedDays').val('');
+}
+
+function NewHumanResourceAddEditShowHide(isedit = true) {
+    if (isedit) {
+        $('#newResourceAdd').hide();
+        $('#newResourceUpdate').show();
+    }
+    else {
+        $('#newResourceUpdate').hide();
+        $('#newResourceAdd').show();
+    }
+}
+///ON ADD CASE OPEN PROJECT MODAL
+function OpenNewHumanResourceModal() {
+    NewHumanResourceAddEditShowHide(false);
+    clearHumanResource();
+    $('#newResourceModal').modal('show');
+}
+
+///REQUIRED MUST 
+var selecedRowThis = null;
+///DELETE CONFIRMATION
+function OnHumanResourceDeleteRowConfirmation(event, id) {
+    $('#humanResource tr').removeClass("selected");
+    $(event).closest("tr").addClass('selected');
+    selecedRowThis = event;
+    $('#newResourceDeleteModal').modal('show');
+}
+///DeleteThisRowHumanResource // CONFIRMED
+function DeleteThisRowHumanResource() {
+    $('#humanResource').DataTable().row('.selected').remove().draw(false);
+    selecedRowThis = null;
+    $('#newResourceDeleteModal').modal('hide');
+}
+
+///CRUD PROJECT ADD EDIT OPERATION
+function OnHumanResourceOnEditBindElements(event, id) {
+    NewHumanResourceAddEditShowHide();
+    $('#humanResource tr').removeClass("selected");
+    $(event).closest("tr").addClass('selected');
+    selecedRowThis = event;
+    $('#drpName').val($(event).closest("tr").find('td').eq(0).text());
+    $('#txtOfferDays').val($(event).closest("tr").find('td').eq(2).text());
+    $('#txtOfferAmountperday').val($(event).closest("tr").find('td').eq(3).text());
+    $('#txtRealEstimatedDays').val($(event).closest("tr").find('td').eq(5).text());
+    $('#newResourceModal').modal('show');
+}
+///BIND ROW WITH DUMMY DATA
+function DrawHumanResourceRow() {
+    $('#humanResource').DataTable().row.add([
+        $('#drpName').val(),
+        'Senior',
+        $('#txtOfferDays').val(),
+        $('#txtOfferAmountperday').val(),
+        0,
+        $('#txtRealEstimatedDays').val(),
+        10,
+        20,
+        30,
+        40,
+        50,
+        '<a href="javascript:void(0)" class="btn btn-primary btn-sm" onclick="OnHumanResourceOnEditBindElements(this, 1);">Edit</a><a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="OnHumanResourceDeleteRowConfirmation(this, 1);">Delete</a>',
+    ]).draw();
+}
+
+///ON PROJECT ADD BUTTON CLICK
+function OnHumanResourceAdd() {
+    $('#humanResource tr').removeClass("selected");
+    DrawHumanResourceRow();
+    $('#newResourceModal').modal('hide');
+    NewHumanResourceAddEditShowHide(false);
+}
+//ON UPDATE SAVE
+function OnHumanResourceUpdateSave() {
+    $('#humanResource').DataTable().row('.selected').remove().draw(false);
+    DrawHumanResourceRow();
+    $('#newResourceModal').modal('hide');
+    selecedRowThis = null;
+    NewHumanResourceAddEditShowHide(false);
 }
 ///******************************PROJECT SCREEN REQUIRED FUNCTIONS END***************************//
