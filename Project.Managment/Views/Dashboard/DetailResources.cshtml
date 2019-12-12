@@ -173,7 +173,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 margin-top-bottom">
-                                <a class="btn btn-success pull-right btn-sm" href="javascript:void(0);" data-column="1">New Business trip</a>
+                                <a class="btn btn-success pull-right btn-sm" href="javascript:void(0);" data-column="1" onclick="OpenNewbussinesstripModal();">New Business trip</a>
                             </div>
                         </div>
                         <div class="col-sm-12 margin-top-bottom">
@@ -203,7 +203,11 @@
                                         <td>150</td>
                                         <td>50</td>
                                         <td>3200</td>
-                                        <td><a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a></td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm" onclick="OnNewbussinesstripOnEditBindElements(this, 1);">Edit</a>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="OnNewbussinesstripDeleteRowConfirmation(this, 1);">Delete</a>
+
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Johan Moon 1</td>
@@ -215,7 +219,10 @@
                                         <td>200</td>
                                         <td>30</td>
                                         <td>4100</td>
-                                        <td><a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a></td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm" onclick="OnNewbussinesstripOnEditBindElements(this, 1);">Edit</a>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="OnNewbussinesstripDeleteRowConfirmation(this, 1);">Delete</a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Johan Moon 2</td>
@@ -227,7 +234,10 @@
                                         <td>10</td>
                                         <td>33</td>
                                         <td>445</td>
-                                        <td><a href="javascript:void(0)" class="btn btn-primary btn-sm">Edit</a></td>
+                                        <td>
+                                            <a href="javascript:void(0)" class="btn btn-primary btn-sm" onclick="OnNewbussinesstripOnEditBindElements(this, 1);">Edit</a>
+                                            <a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="OnNewbussinesstripDeleteRowConfirmation(this, 1);">Delete</a>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
@@ -256,7 +266,7 @@
 
 
 
-<!--MODAL POPUP CODE-->
+<!--MODAL POPUP HUMAN RESOURCE CODE-->
 <!-- The Modal -->
 <div class="modal" id="newResourceModal">
     <div class="modal-dialog">
@@ -327,6 +337,85 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" onclick="DeleteThisRowHumanResource();">Delete</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--MODAL POPUP HUMAN RESOURCE CODE-->
+<!-- The Modal -->
+<div class="modal" id="NewbussinesstripModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Business Trip</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="modal-form">
+                    @*<div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Name</label>
+                        <div class="col-sm-8">
+                            <select class="form-control basicAutoSelect" name="simple_select" id="drpName"
+                                    placeholder="type to search..."
+                                    data-url="../../testdata/testsampledata.json" autocomplete="off"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Offer Days</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="txtOfferDays" placeholder="Offer Days">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Offer Amount per day</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="txtOfferAmountperday" placeholder="Offer Amount per day">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-4 col-form-label">Real estimated days</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control" id="txtRealEstimatedDays" placeholder="Real estimated days">
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-success" onclick="OnNewbussinesstripAdd();" id="newBusinessTripAdd" style="display:none;">Save</button>
+                <button type="button" class="btn btn-success" onclick="OnNewbussinesstripUpdateSave();" id="newBusinessTripUpdate" style="display:none;">Update</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--DELETE ROW CONFIRMATION-->
+<div class="modal" id="NewbussinesstripDeleteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Human Resource</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="modal-form">
+                    <p>
+                        Are you sure you want to delete this item?
+                    </p>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="DeleteThisRowNewbussinesstrip();">Delete</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
