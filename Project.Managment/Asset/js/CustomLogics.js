@@ -307,7 +307,7 @@ function GetAvarage(total = 0, id) {
     var count = $('#' + id).find('tbody').children().length;
     var average = 0;
     average = total / count;
-    return average;
+    return average.toFixed(2);
 }
 
 ///******************************COMMON FUNCTIONS END***************************//
@@ -347,13 +347,13 @@ function OpenAddProjectModal() {
 }
 
 ///REQUIRED MUST 
-var selecedRowThis = null;
+var selecedRowProjectThis = null;
 ///CRUD PROJECT ADD EDIT OPERATION
 function OnProjectEditBindElements(event, id) {
     ProjectAddEditShowHide();
     $('#project tr').removeClass("selected");
     $(event).closest("tr").addClass('selected');
-    selecedRowThis = event;
+    selecedRowProjectThis = event;
     $('#txtData').val($(event).closest("tr").find('td').eq(0).text());
     $('#txtFornotore').val($(event).closest("tr").find('td').eq(1).text());
     $('#txtLotto').val($(event).closest("tr").find('td').eq(2).text());
@@ -391,7 +391,7 @@ function OnProjectUpdateSave() {
     $('#project').DataTable().row('.selected').remove().draw(false);
     DrawProjectRow();
     $('#addProject').modal('hide');
-    selecedRowThis = null;
+    selecedRowProjectThis = null;
     ProjectAddEditShowHide(false);
 }
 ///******************************PROJECT SCREEN REQUIRED FUNCTIONS END***************************//
@@ -405,7 +405,7 @@ function clearHumanResource() {
     $('#txtOfferAmountperday').val('');
     $('#txtRealEstimatedDays').val('');
 }
-
+///New Human Resource Add Edit Show Hide
 function NewHumanResourceAddEditShowHide(isedit = true) {
     if (isedit) {
         $('#newResourceAdd').hide();
@@ -422,29 +422,27 @@ function OpenNewHumanResourceModal() {
     clearHumanResource();
     $('#newResourceModal').modal('show');
 }
-
 ///REQUIRED MUST 
-var selecedRowThis = null;
+var selecedRowHumanResourceThis = null;
 ///DELETE CONFIRMATION
 function OnHumanResourceDeleteRowConfirmation(event, id) {
     $('#humanResource tr').removeClass("selected");
     $(event).closest("tr").addClass('selected');
-    selecedRowThis = event;
+    selecedRowHumanResourceThis = event;
     $('#newResourceDeleteModal').modal('show');
 }
 ///DeleteThisRowHumanResource // CONFIRMED
 function DeleteThisRowHumanResource() {
     $('#humanResource').DataTable().row('.selected').remove().draw(false);
-    selecedRowThis = null;
+    selecedRowHumanResourceThis = null;
     $('#newResourceDeleteModal').modal('hide');
 }
-
 ///CRUD PROJECT ADD EDIT OPERATION
 function OnHumanResourceOnEditBindElements(event, id) {
     NewHumanResourceAddEditShowHide();
     $('#humanResource tr').removeClass("selected");
     $(event).closest("tr").addClass('selected');
-    selecedRowThis = event;
+    selecedRowHumanResourceThis = event;
     $('#drpName').val($(event).closest("tr").find('td').eq(0).text());
     $('#txtOfferDays').val($(event).closest("tr").find('td').eq(2).text());
     $('#txtOfferAmountperday').val($(event).closest("tr").find('td').eq(3).text());
@@ -468,7 +466,6 @@ function DrawHumanResourceRow() {
         '<a href="javascript:void(0)" class="btn btn-primary btn-sm" onclick="OnHumanResourceOnEditBindElements(this, 1);">Edit</a><a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="OnHumanResourceDeleteRowConfirmation(this, 1);">Delete</a>',
     ]).draw();
 }
-
 ///ON PROJECT ADD BUTTON CLICK
 function OnHumanResourceAdd() {
     $('#humanResource tr').removeClass("selected");
@@ -481,7 +478,99 @@ function OnHumanResourceUpdateSave() {
     $('#humanResource').DataTable().row('.selected').remove().draw(false);
     DrawHumanResourceRow();
     $('#newResourceModal').modal('hide');
-    selecedRowThis = null;
+    selecedRowHumanResourceThis = null;
     NewHumanResourceAddEditShowHide(false);
 }
 ///******************************PROJECT SCREEN REQUIRED FUNCTIONS END***************************//
+
+
+
+///******************************NEW BUSSINESS TRIP REQUIRED FUNCTIONS***************************//
+
+
+///DUE TO WE ARE USING ONE MODAL POPUP FOR ADD EDIT
+function clearNewbussinesstrip() {
+    $('#drpName').val('');
+    $('#txtOfferDays').val('');
+    $('#txtOfferAmountperday').val('');
+    $('#txtRealEstimatedDays').val('');
+}
+///New Human Resource Add Edit Show Hide
+function NewbussinesstripAddEditShowHide(isedit = true) {
+    if (isedit) {
+        $('#newBusinessTripAdd').hide();
+        $('#newBusinessTripUpdate').show();
+    }
+    else {
+        $('#newBusinessTripUpdate').hide();
+        $('#newBusinessTripAdd').show();
+    }
+}
+///ON ADD CASE OPEN PROJECT MODAL
+function OpenNewbussinesstripModal() {
+
+    NewbussinesstripAddEditShowHide(false);
+    clearNewbussinesstrip();
+    $('#NewbussinesstripModal').modal('show');
+}
+///REQUIRED MUST 
+var selecedRowNewBussinessTripThis = null;
+///DELETE CONFIRMATION
+function OnNewbussinesstripDeleteRowConfirmation(event, id) {
+    $('#dtBusinessTrip tr').removeClass("selected");
+    $(event).closest("tr").addClass('selected');
+    selecedRowNewBussinessTripThis = event;
+    $('#NewbussinesstripDeleteModal').modal('show');
+}
+///DeleteThisRowHumanResource // CONFIRMED
+function DeleteThisRowNewbussinesstrip() {
+    $('#dtBusinessTrip').DataTable().row('.selected').remove().draw(false);
+    selecedRowNewBussinessTripThis = null;
+    $('#NewbussinesstripDeleteModal').modal('hide');
+}
+///CRUD PROJECT ADD EDIT OPERATION
+function OnNewbussinesstripOnEditBindElements(event, id) {
+    NewbussinesstripAddEditShowHide();
+    $('#dtBusinessTrip tr').removeClass("selected");
+    $(event).closest("tr").addClass('selected');
+    selecedRowNewBussinessTripThis = event;
+    $('#drpName').val($(event).closest("tr").find('td').eq(0).text());
+    $('#txtOfferDays').val($(event).closest("tr").find('td').eq(2).text());
+    $('#txtOfferAmountperday').val($(event).closest("tr").find('td').eq(3).text());
+    $('#txtRealEstimatedDays').val($(event).closest("tr").find('td').eq(5).text());
+    $('#NewbussinesstripModal').modal('show');
+}
+///BIND ROW WITH DUMMY DATA
+function DrawNewbussinesstripRow() {
+    $('#dtBusinessTrip').DataTable().row.add([
+        $('#drpName').val(),
+        'Senior',
+        $('#txtOfferDays').val(),
+        $('#txtOfferAmountperday').val(),
+        0,
+        $('#txtRealEstimatedDays').val(),
+        10,
+        20,
+        30,
+        40,
+        50,
+        '<a href="javascript:void(0)" class="btn btn-primary btn-sm" onclick="OnHumanResourceOnEditBindElements(this, 1);">Edit</a><a href="javascript:void(0)" class="btn btn-danger btn-sm" onclick="OnHumanResourceDeleteRowConfirmation(this, 1);">Delete</a>',
+    ]).draw();
+}
+///ON PROJECT ADD BUTTON CLICK
+function OnNewbussinesstripAdd() {
+    $('#dtBusinessTrip tr').removeClass("selected");
+    DrawNewbussinesstripRow();
+    $('#NewbussinesstripModal').modal('hide');
+    NewNewbussinesstripAddEditShowHide(false);
+}
+//ON UPDATE SAVE
+function OnNewbussinesstripUpdateSave() {
+    $('#dtBusinessTrip').DataTable().row('.selected').remove().draw(false);
+    DrawNewbussinesstripRow();
+    $('#NewbussinesstripModal').modal('hide');
+    selecedRowNewBussinessTripThis = null;
+    NewbussinesstripAddEditShowHide(false);
+}
+///******************************NEW BUSSINESS TRIP SCREEN REQUIRED FUNCTIONS END***************************//
+
